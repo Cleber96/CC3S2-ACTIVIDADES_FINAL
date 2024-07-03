@@ -130,23 +130,38 @@ cat Dockerfile
   ![docker_puerto](Image/docker_puerto.png)
  - RESULTADO: se genera una imagen que podrá ser ejecuta
 ## Tarea 3: Modificar un sitio web en ejecución
-### Comience nuestra aplicación web con una montura de atar
+### Comience nuestra aplicación web con una bind mount
+- usaremos la bandera --mount para montar el directorio actual en el host en /usr/share/nginx/html dentro del contenedor.
+```sh
+ docker container run \
+ --detach \
+ --publish 80:80 \
+ --name linux_tweet_app \
+ --mount type=bind,source="$(pwd)",target=/usr/share/nginx/html \
+ $DOCKERID/linux_tweet_app:1.0
+```
+![container_run](Image/container_run.png)
+![mapeo_port](Image/mapeo_port.png)
 
+- EXPLICACION: indica que el mapeo desde el contenedor del puerto 80 al puerto local 80 ha sido creado con éxito ejecutando linux_tweet_app
 
- - comandos usados
-   - cd: sirve 
- ```sh
+- ahora queremos tener el contenedor que se inició `docker container rm --force linux_tweet_app`
 
- ```
-  ![](Image/.png)
- - RESULTADO: 
-<br><br><br>
-+++++++++++++++
-docker container run alpine hostname
-docker container run --name my-alpine-container alpine hostname
+![container_stop](Image/container_stop.png)
+- EXPLICACION: esto indica que el mismo archivo que iniciamos ahora lo detuvimos por lo que el puerto 80 se encuentra liberado
+### Modify the running website
+- ahora modificaremos algunas características del sitio web en funcionamiento ` cp index-new.html index.html` que hará que cualquier cambio local se realice también en el contenedor
 
+![update_webContainer](Image/update_webContainer.png)
+- EXPLICACION: si se actualiza el sitio web se verificarán cambios que se propusieron localmente en el contenedor
 
-empaquetar y ejecutar
-docker build -t my-tower-app .
-docker run --name tower-container my-tower-app
+## Update the image
+- para mantener los cambios con los cambios realizados en index se debe crear una nueva imagen
+```bash
+ docker image build --tag $DOCKERID/linux_tweet_app:2.0 .
+  docker image ls
+```
+![upgrade_image](Image/upgrade_image.png)
+
+- EXPLICACION: se crea una nueba imagen de linux_tweet_app y se verifica que se encuentra en la lista
 

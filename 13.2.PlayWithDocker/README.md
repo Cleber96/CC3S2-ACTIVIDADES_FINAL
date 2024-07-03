@@ -12,8 +12,5 @@ Aprenda conceptos centrales de Docker y cómo hacer aplicaciones más rápidas, 
 - `stage 2`: 
     - enlace a recurso [Digging Deeper](https://training.play-with-docker.com/dev-stage2/)
     - enlace a directorio  [SOLVE_FOR_FINAL](stage3)
-- `stage 3`: 
-    - enlace a recurso [Digging Deeper](https://training.play-with-docker.com/dev-stage3/)
-    - enlace a directorio  [SOLVE_FOR_FINAL](stage3)
 
 
